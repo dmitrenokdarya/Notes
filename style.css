@@ -8,8 +8,8 @@
 *:focus-visible{
     outline: none;
 }
-*:active{
-    border-style: none;
+input:focus, textarea:focus, .yellow:hover, .green:hover, .blue:hover, .pink:hover, .violet:hover{
+    border: 1px solid rgb(173, 173, 173);
 }
 
 
@@ -138,13 +138,14 @@ textarea{
     cursor: pointer;
 }
 
-.choose_color{
+.color_items{
     height: 36px;
     width: 212px;
     display: flex;
     justify-content: space-between;
     padding: 6px;
     margin-bottom: 12px;
+    list-style-type: none;
 }
 
 .yellow, .green, .blue, .pink, .violet{
@@ -160,7 +161,7 @@ textarea{
 }
 
 .yellow {
-    background-color: rgba(243, 219, 125, 1);
+    background-color: rgb(243, 219, 125);
 }
 .green {
     background-color: rgba(194, 243, 125, 1);
@@ -174,7 +175,6 @@ textarea{
 .violet {
     background-color: rgba(231, 125, 243, 1);
 }
-
 
 /*Стили для второй секции*/
 .second_section{
