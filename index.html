@@ -3,35 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <img src="assets/img/📝Notes.png" alt="Logo">
         <div>
             <img src="assets/img/notes.png" alt="Notes icon">
-            <p>Всего заметок: </p>
-            <p id="numberOfNotes"></p>
+            <span>Всего заметок: </span>
+            <span class="number_of_notes">0</span>
         </div>
     </header>
 
-    <section>
+    <section class="first_section">
         <form action="">
-            <p>Название заметки</p>
-            <input type="text" placeholder="Напишите название новой заметки...">
-            <p>Описание новой заметки</p>
-            <textarea name="" id="" placeholder="Напишите описание новой заметки..."></textarea>
-            <p>Выберите цвет заметки</p>
-            <button class="yellow"></button>
-            <button class="green"></button>
-            <button class="blue"></button>
-            <button class="pink"></button>
-            <button class="violet"></button>
-            <button>+ Добавить заметку</button>
+            <div class="name_of_note">
+                <p>Название заметки</p>
+                <input type="text" placeholder="Напишите название новой заметки...">
+            </div>
+            <div class="new_note_color">
+                <div class="new_note">
+                    <p>Описание новой заметки</p>
+                    <textarea name="" id="" placeholder="Напишите описание новой заметки..."></textarea>
+                </div>
+                <div class="color_add">
+                    <p>Выберите цвет заметки</p>
+                    <div class="choose_color">
+                        <button class="yellow"></button>
+                        <button class="green"></button>
+                        <button class="blue"></button>
+                        <button class="pink"></button>
+                        <button class="violet"></button>
+                    </div>
+                    <button class="add_button"><img src="assets/img/plus-svgrepo-com 1.png" alt="Plus"> Добавить заметку<button>
+                </div>
+            </div>
         </form>
     </section>
-    <section>
-        
+
+    <section class="second_section">
+        <div class="text_no_notes">
+            <p>У вас нет еще ни одной заметки</p>
+            <p>Заполните поля выше и создайте свою первую заметку!</p>
+        </div>
+
     </section>
 </body>
 </html>

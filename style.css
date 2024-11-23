@@ -1,0 +1,190 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+*:focus-visible{
+    outline: none;
+}
+*:active{
+    border-style: none;
+}
+
+
+/*Стили для всего документа*/
+body{
+    font-family: "Montserrat", sans-serif;
+    background-color: rgba(250, 250, 252, 1);
+    
+}
+
+/*Стили для хэдера*/
+header{
+    background-color: rgba(255, 255, 255, 1);
+    height: 60px;
+    padding: 18px 64px;
+    box-shadow: 0px 1px 3px 0px rgba(11, 12, 13, 0.16);
+    box-shadow: 0px 0px 1px 0px rgba(11, 12, 13, 0.24);
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 1);
+}
+
+header div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 175px;
+}
+
+.number_of_notes{
+    font-weight: 700;
+}
+
+/*Стили для первой секции*/
+.first_section {
+    color: rgba(145, 145, 145, 1);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    height: 228px;
+    margin: 24px 64px 0px 64px;
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 12px 0px rgba(11, 12, 13, 0.08);
+    box-shadow: 0px 16px 24px 0px rgba(11, 12, 13, 0.04);
+    box-shadow: 0px 1px 2px 0px rgba(11, 12, 13, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+input::placeholder, textarea::placeholder{
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(145, 145, 145, 1);
+}
+
+input{
+    border: 1px solid rgba(232, 232, 232, 1);
+    height: 36px;
+    width: 344px;
+    padding: 6px 12px 6px 12px;
+    margin-bottom: 12px;
+    gap: 10px;
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+.new_note_color{
+    display: flex;
+    justify-content: space-between;
+}
+
+.new_note{
+    display: flex;
+    flex-direction: column;
+    width: 848px;
+}
+
+textarea{
+    border: 1px solid rgba(232, 232, 232, 1);
+    height: 84px;
+    width: 848px;
+    padding: 6px 12px 6px 12px;
+    gap: 10px;
+    border-radius: 10px;
+    border-width: 1px;
+    resize: none;
+}
+
+.color_add{
+    display: flex;
+    flex-direction: column;
+    height: 108px;
+    width: 232px;
+}
+
+.add_button{
+    padding-block: 0px;
+    padding-inline: 0px;
+    border-width: 0px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 36px;
+    padding: 6px 24px 6px 24px;
+    gap: 8px;
+    border-radius: 10px;
+    border-color: rgba(69, 124, 220, 1);
+    background-color: rgba(69, 124, 220, 1);
+    color: rgba(255, 255, 255, 1);
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    white-space: nowrap;
+
+    cursor: pointer;
+}
+
+.choose_color{
+    height: 36px;
+    width: 212px;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px;
+    margin-bottom: 12px;
+}
+
+.yellow, .green, .blue, .pink, .violet{
+    padding-block: 0px;
+    padding-inline: 0px;
+    border-width: 0px;
+
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.yellow {
+    background-color: rgba(243, 219, 125, 1);
+}
+.green {
+    background-color: rgba(194, 243, 125, 1);
+}
+.blue {
+    background-color: rgba(125, 225, 243, 1);
+}
+.pink {
+    background-color: rgba(243, 125, 125, 1);
+}
+.violet {
+    background-color: rgba(231, 125, 243, 1);
+}
+
+
+/*Стили для второй секции*/
+.second_section{
+    margin: 24px 64px;
+}
+
+.text_no_notes{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    margin-top: 138px;
+}
