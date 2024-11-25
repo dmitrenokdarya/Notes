@@ -5,13 +5,14 @@
     padding: 0px;
     margin: 0px;
 }
-*:focus-visible{
+
+*:focus-visible {
     outline: none;
 }
 
 
 /*Стили для всего документа*/
-body{
+body {
     min-width: 375px;
     font-family: "Montserrat", sans-serif;
     background-color: rgba(250, 250, 252, 1);
@@ -19,12 +20,18 @@ body{
 }
 
 /*Интерактив*/
-input:focus, textarea:focus, .yellow:hover, .green:hover, .blue:hover, .pink:hover, .violet:hover{
+input:focus,
+textarea:focus,
+.yellow:hover,
+.green:hover,
+.blue:hover,
+.pink:hover,
+.violet:hover {
     border: 1px solid rgb(173, 173, 173);
 }
 
 /*Стили для хэдера*/
-header{
+header {
     display: flex;
     justify-content: space-between;
     height: 60px;
@@ -44,7 +51,7 @@ header div {
     align-items: center;
 }
 
-.number_of_notes{
+.number_of_notes {
     font-weight: 700;
 }
 
@@ -66,7 +73,8 @@ header div {
     text-align: left;
 }
 
-input::placeholder, textarea::placeholder{
+input::placeholder,
+textarea::placeholder {
     font-family: "Montserrat", sans-serif;
     color: rgba(145, 145, 145, 1);
     font-size: 14px;
@@ -74,7 +82,7 @@ input::placeholder, textarea::placeholder{
     text-align: left;
 }
 
-input{
+input {
     height: 36px;
     width: 344px;
     padding: 6px 12px 6px 12px;
@@ -85,18 +93,18 @@ input{
     border-width: 1px;
 }
 
-.new_note_color{
+.new_note_color {
     display: flex;
     justify-content: space-between;
 }
 
-.new_note{
+.new_note {
     width: 848px;
     display: flex;
     flex-direction: column;
 }
 
-textarea{
+textarea {
     min-width: 848px;
     height: 84px;
     padding: 6px 12px 6px 12px;
@@ -107,14 +115,14 @@ textarea{
     resize: none;
 }
 
-.color_add{
+.color_add {
     height: 108px;
     width: 232px;
     display: flex;
     flex-direction: column;
 }
 
-.add_button{
+.add_button {
     padding-block: 0px;
     padding-inline: 0px;
     border-width: 0px;
@@ -137,7 +145,7 @@ textarea{
     cursor: pointer;
 }
 
-.color_items{
+.color_items {
     display: flex;
     justify-content: space-between;
     height: 36px;
@@ -147,62 +155,70 @@ textarea{
     list-style-type: none;
 }
 
-.yellow, .green, .blue, .pink, .violet{
+
+/*Придаем размеры и цвет радиокнопкам*/
+input[type="radio"] {
+    display: none;
+}
+
+.custom-radio {
     padding-block: 0px;
     padding-inline: 0px;
     border-width: 0px;
 
+    display: inline-block;
     height: 24px;
     width: 24px;
     border-radius: 50%;
-
     cursor: pointer;
 }
 
 .yellow {
     background-color: rgb(243, 219, 125);
 }
+
 .green {
     background-color: rgba(194, 243, 125, 1);
 }
+
 .blue {
     background-color: rgba(125, 225, 243, 1);
 }
+
 .pink {
     background-color: rgba(243, 125, 125, 1);
 }
+
 .violet {
     background-color: rgba(231, 125, 243, 1);
 }
 
+/*Если радиокнопка нажата*/
+input[type="radio"].checked {
+    border: 2px solid rgba(69, 124, 220, 1);
+    ;
+}
+
+
 /*Стили для второй секции*/
-.second_section{
+.second_section {
     margin: 24px 64px;
 }
 
-.text_no_notes{
-    margin-top: 138px;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: center;
-}
-
-
 /*Адаптив для планшетов*/
 
-@media screen and (max-width: 1280px){
+@media screen and (max-width: 1280px) {
     .first_section {
         height: 348px;
     }
 
-    .new_note_color{
+    .new_note_color {
         display: flex;
         flex-direction: column;
     }
 
-    textarea{
+    textarea {
         min-width: 1104px;
         margin-bottom: 12px;
     }
 }
-
