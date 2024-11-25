@@ -4,12 +4,11 @@ const model = {
     addTask(title, description, color) {
         const isSelected = false;
         const id = Math.random();
-        console.log(description);
         const newTask = { title, description, color, isSelected, id };
 
         this.tasks.unshift(newTask);
-
-        view.renderTasks(model.tasks); // Обновляем представление 
+        console.log(model.tasks)
+        view.renderTasks(model.tasks); //Обновляем представление
     },
 }
 
@@ -22,18 +21,23 @@ const view = {
         const input = document.querySelector('.input')
         const textarea = document.querySelector('.textarea')
 
-        // Добавляем обработчик события на форму 
         form.addEventListener('submit', function (event) {
-            event.preventDefault() // Предотвращаем стандартное поведение формы 
+            event.preventDefault() //Предотвращаем стандартное поведение формы
             const title = document.querySelector('.input').value
             const description = document.querySelector('.textarea').value
-            const color = document.getElementsByName('color:checked').value //??? 
 
-            console.log(color)
-            console.log(description)
-            controller.addTask(title, description, color) // Вызываем метод addTask контроллера 
+            //Находим checked-радиокнопку
+            const radioButtons = document.getElementsByName('color');
+            let color = '';
+            radioButtons.forEach((rbuttonNumber) => {
+                if (rbuttonNumber.checked) {
+                    color = rbuttonNumber.value;
+                }
+            })
 
-            input.value = '' // Очищаем поле ввода 
+            controller.addTask(title, description, color)
+
+            input.value = ''
             textarea.value = ''
         })
     },
@@ -41,12 +45,13 @@ const view = {
     renderTasks(tasks) {
         const list = document.querySelector('.list')
         let count = document.querySelector('.number_of_notes')
+        let textZeroNotes = document.querySelector('.textZeroNotes')
         if (tasks.length === 0) {
-            const textZeroNotes = document.querySelector('.textZeroNotes')
             textZeroNotes.innerHTML = 'У вас ещё нет ни одной заметки.<br>Заполните поля выше и создайте свою первую заметку!'
 
         } else {
             let tasksHTML = ''
+            textZeroNotes.remove()
             tasks.forEach((task) => {
                 tasksHTML += ` 
                     <li id="${task.id}" class="${task.isSelected ? 'selected' : ''}"> 
@@ -64,9 +69,9 @@ const view = {
 }
 
 const controller = {
-    addTask(title, description) {
+    addTask(title, description, color) {
         if (title.trim() !== '' && title.length <= 50 && description.trim() !== '') {
-            model.addTask(title)
+            model.addTask(title, description, color)
         } else if (title.length > 50) {
             //Картинка, но пока не знаю, куда 
         }
@@ -79,4 +84,4 @@ function init() {
     view.init()
 }
 
-init()
+document.addEventListener('DOMContentLoaded', init())

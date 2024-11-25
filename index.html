@@ -24,41 +24,36 @@
     </header>
 
     <section class="first_section">
-        <form class="form">
+        <form class="form" method="get">
             <div class="name_of_note">
                 <p>Название заметки</p>
-                <input class="input" type="text" placeholder="Напишите название новой заметки...">
+                <input class="input" type="text" name="new_note" placeholder="Напишите название новой заметки...">
             </div>
             <div class="new_note_color">
                 <div class="new_note">
                     <p>Описание новой заметки</p>
-                    <textarea class="textarea" placeholder="Напишите описание новой заметки..."></textarea>
+                    <textarea class="textarea" name="new_description" placeholder="Напишите описание новой заметки..."></textarea>
                 </div>
                 <div class="color_add">
                     <p>Выберите цвет заметки</p>
                     <ul class="color_items">
                         <li>
-                            <input type="radio" name="color" checked="checked">
-                            <span class="custom-radio yellow"></span>
+                            <input class="radio-input yellow" type="radio" name="color" value="yellow">
                         </li>
                         <li>
-                            <input type="radio" name="color">
-                            <span class="custom-radio green"></span>
+                            <input class="radio-input green" type="radio" name="color" value="green">
                         </li>
                         <li>
-                            <input type="radio" name="color">
-                            <span class="custom-radio blue"></span>
+                            <input class="radio-input blue" type="radio" name="color" value="blue">
                         </li>
                         <li>
-                            <input type="radio" name="color">
-                            <span class="custom-radio pink"></span>
+                            <input class="radio-input pink" type="radio" name="color" value="pink">
                         </li>
                         <li>
-                            <input type="radio" name="color">
-                            <span class="custom-radio violet"></span>
+                            <input class="radio-input violet" type="radio" name="color" value="violet">
                         </li>
                     </ul>
-                    <button class="add_button"><img src="assets/img/plus-svgrepo-com 1.png" alt="Plus"> Добавить
+                    <button class="add_button" name="add_button"><img src="assets/img/plus-svgrepo-com 1.png" alt="Plus"> Добавить
                         заметку</button>
                 </div>
             </div>
@@ -71,6 +66,9 @@
 
         </ul>
     </section>
+
+
+    <script src="index.js"></script>
 </body>
 
 </html>

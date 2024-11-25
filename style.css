@@ -22,11 +22,7 @@ body {
 /*Интерактив*/
 input:focus,
 textarea:focus,
-.yellow:hover,
-.green:hover,
-.blue:hover,
-.pink:hover,
-.violet:hover {
+.radio-input:hover {
     border: 1px solid rgb(173, 173, 173);
 }
 
@@ -83,6 +79,7 @@ textarea::placeholder {
 }
 
 input {
+    font-family: "Montserrat", sans-serif; /*Не шло наследование от body*/
     height: 36px;
     width: 344px;
     padding: 6px 12px 6px 12px;
@@ -105,6 +102,7 @@ input {
 }
 
 textarea {
+    font-family: "Montserrat", sans-serif; /*Не шло наследование от body*/
     min-width: 848px;
     height: 84px;
     padding: 6px 12px 6px 12px;
@@ -157,8 +155,13 @@ textarea {
 
 
 /*Придаем размеры и цвет радиокнопкам*/
-input[type="radio"] {
-    display: none;
+.radio-input{
+    appearance: none;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .custom-radio {
@@ -194,8 +197,8 @@ input[type="radio"] {
 }
 
 /*Если радиокнопка нажата*/
-input[type="radio"].checked {
-    border: 2px solid rgba(69, 124, 220, 1);
+.radio-input:checked {
+    border: 1px solid rgba(69, 124, 220, 1);
     ;
 }
 
@@ -203,6 +206,17 @@ input[type="radio"].checked {
 /*Стили для второй секции*/
 .second_section {
     margin: 24px 64px;
+}
+
+.textZeroNotes{
+    margin-top: 138px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.list{
+
 }
 
 /*Адаптив для планшетов*/
