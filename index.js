@@ -1,5 +1,6 @@
 const model = {
     tasks: [],
+    selectedTasks: [],
 
     addTask(title, description, color) {
         const isSelected = false;
@@ -7,11 +8,15 @@ const model = {
         const newTask = { title, description, color, isSelected, id };
 
         this.tasks.unshift(newTask);
-        console.log(model.tasks)
         view.renderTasks(model.tasks); //Обновляем представление
     },
-}
 
+    deleteNote(id) {
+        console.log(id)
+        this.tasks = this.tasks.filter(task => task.id !== id);
+        view.renderTasks(model.tasks)
+    },
+}
 
 const view = {
     init() {
@@ -40,6 +45,17 @@ const view = {
             input.value = ''
             textarea.value = ''
         })
+
+        const list = document.querySelector('.list')
+        list.addEventListener('click', event => {
+            console.log(event.target)
+            if (event.target.matches('img')) {
+                console.log('Вью2')
+                const id = +event.target.parentElement.id
+                console.log(id)
+                controller.deleteNote(id)
+            }
+        })
     },
 
     renderTasks(tasks) {
@@ -48,21 +64,24 @@ const view = {
         let textZeroNotes = document.querySelector('.textZeroNotes')
         if (tasks.length === 0) {
             textZeroNotes.innerHTML = 'У вас ещё нет ни одной заметки.<br>Заполните поля выше и создайте свою первую заметку!'
-
         } else {
             let tasksHTML = ''
-            textZeroNotes.remove()
+            if (textZeroNotes) { textZeroNotes.remove() }
             tasks.forEach((task) => {
                 tasksHTML += ` 
-                    <li id="${task.id}" class="${task.isSelected ? 'selected' : ''}"> 
-                    <p class="task-title">${task.title}</p> 
-                    <p class="task-description">${task.description}</p> 
-                    <button class="selected-button" type="button">???</button> 
-                    <button class="delete-button" type="button"><img src="assets/img/trash.png" alt="Delete"></button> 
-                    </li> 
-                    `
-                list.innerHTML = tasksHTML
+                        <li id="${task.id}" class="${task.isSelected ? 'selected' : ''} note"> 
+                        <div class = "title-buttons ${task.color}">
+                            <p class="task-title">${task.title}</p> 
+                            <div class = "buttons">
+                                <img src="assets/img/heart inactive.svg" alt="Selected" class="selected-button"> 
+                                <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
+                            </div>
+                        </div >
+                        <p class="task-description">${task.description}</p> 
+                        </li> 
+                        `
             })
+            list.innerHTML = tasksHTML
         }
         count.innerHTML = tasks.length
     }
@@ -70,18 +89,42 @@ const view = {
 
 const controller = {
     addTask(title, description, color) {
+        const popupAdd = document.querySelector(".add");
+        const popupError = document.querySelector(".error");
+        const popupMaxLength = document.querySelector(".max_length");
+        const popupWindows = document.querySelector(".popup_windows")
+        function showPopupAdd() { popupAdd.style.display = "block"; }
+        function showPopupError() { popupError.style.display = "block"; }
+        function showPopupMaxLength() { popupMaxLength.style.display = "block"; }
+        function hidePopup() { popupAdd.style.display = "none"; popupError.style.display = "none"; popupMaxLength.style.display = "none"; }
+        function showPopupWindows() { popupWindows.style.display = "block"; }
+        function hidePopupWindows() { popupWindows.style.display = "none"; }
+
         if (title.trim() !== '' && title.length <= 50 && description.trim() !== '') {
+            showPopupWindows()
+            showPopupAdd()
+            setTimeout(function () { hidePopupWindows(); hidePopup() }, 3000)
             model.addTask(title, description, color)
         } else if (title.length > 50) {
-            //Картинка, но пока не знаю, куда 
+            showPopupWindows()
+            showPopupMaxLength()
+            setTimeout(function () { hidePopupWindows(); hidePopup() }, 3000)
+        } else {
+            showPopupWindows()
+            showPopupError()
+            setTimeout(function () { hidePopupWindows(); hidePopup() }, 3000)
         }
     },
+
+    deleteNote(id) {
+        console.log('Контроллер')
+        model.deleteNote(id)
+    }
 }
-
-
 
 function init() {
     view.init()
 }
 
 document.addEventListener('DOMContentLoaded', init())
+

@@ -32,13 +32,14 @@
             <div class="new_note_color">
                 <div class="new_note">
                     <p>Описание новой заметки</p>
-                    <textarea class="textarea" name="new_description" placeholder="Напишите описание новой заметки..."></textarea>
+                    <textarea class="textarea" name="new_description"
+                        placeholder="Напишите описание новой заметки..."></textarea>
                 </div>
                 <div class="color_add">
                     <p>Выберите цвет заметки</p>
                     <ul class="color_items">
                         <li>
-                            <input class="radio-input yellow" type="radio" name="color" value="yellow">
+                            <input class="radio-input yellow" type="radio" name="color" value="yellow" checked>
                         </li>
                         <li>
                             <input class="radio-input green" type="radio" name="color" value="green">
@@ -53,7 +54,8 @@
                             <input class="radio-input violet" type="radio" name="color" value="violet">
                         </li>
                     </ul>
-                    <button class="add_button" name="add_button"><img src="assets/img/plus-svgrepo-com 1.png" alt="Plus"> Добавить
+                    <button class="add_button" name="add_button"><img src="assets/img/plus-svgrepo-com 1.png"
+                            alt="Plus"> Добавить
                         заметку</button>
                 </div>
             </div>
@@ -67,6 +69,18 @@
         </ul>
     </section>
 
+    <!-- Всплывающие окна -->
+    <div class="popup_windows">
+        <div class="add">
+            <div class="text_popup"><img src="assets/img/Done.png" alt="done" class="popup_img">Заметка добавлена</div>
+        </div>
+        <div class="error">
+            <div class="text_popup"><img src="assets/img/warning.png" alt="warning" class="popup_img">Заполните все поля</div>
+        </div>
+        <div class="max_length">
+            <div class="text_popup"><img src="assets/img/warning.png" alt="warning" class="popup_img">Максимальная длина заголовка - 50 символов</div>
+        </div>
+    </div>
 
     <script src="index.js"></script>
 </body>

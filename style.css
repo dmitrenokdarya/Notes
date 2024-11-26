@@ -79,7 +79,8 @@ textarea::placeholder {
 }
 
 input {
-    font-family: "Montserrat", sans-serif; /*Не шло наследование от body*/
+    font-family: "Montserrat", sans-serif;
+    /*Не шло наследование от body*/
     height: 36px;
     width: 344px;
     padding: 6px 12px 6px 12px;
@@ -102,7 +103,8 @@ input {
 }
 
 textarea {
-    font-family: "Montserrat", sans-serif; /*Не шло наследование от body*/
+    font-family: "Montserrat", sans-serif;
+    /*Не шло наследование от body*/
     min-width: 848px;
     height: 84px;
     padding: 6px 12px 6px 12px;
@@ -155,7 +157,7 @@ textarea {
 
 
 /*Придаем размеры и цвет радиокнопкам*/
-.radio-input{
+.radio-input {
     appearance: none;
     display: inline-block;
     height: 24px;
@@ -208,15 +210,107 @@ textarea {
     margin: 24px 64px;
 }
 
-.textZeroNotes{
+.textZeroNotes {
     margin-top: 138px;
     font-size: 16px;
     font-weight: 500;
     text-align: center;
 }
 
-.list{
+.list {}
 
+
+/*Стили для образованных записей*/
+.list {
+    display: flex;
+    gap: 24px;
+}
+
+.note {
+    list-style-type: none;
+    width: 368px;
+    text-align: left;
+    box-shadow: 0px 4px 8px 0px #0B0C0D14;
+    box-shadow: 0px 8px 16px 0px #0B0C0D0A;
+    box-shadow: 0px 1px 2px 0px #0B0C0D14;
+}
+
+.title-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #292515;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.task-description {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 12px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+img.selected-button, img.delete-button {
+    height: 16px;
+    width: 16px;
+}
+
+
+
+
+
+/*Всплывающие окна*/
+.add,
+.error,
+.max_length {
+    position: absolute;
+    top: 80%;
+    right: 5%;
+    height: 48px;
+    border-radius: 10px;
+    padding: 12px 24px 12px 24px;
+    box-shadow: 0px 8px 12px 0px #0B0C0D14;
+    box-shadow: 0px 16px 24px 0px #0B0C0D0A;
+    box-shadow: 0px 1px 2px 0px #0B0C0D14;
+}
+
+.add {
+    display: none;
+    background-color: #47B27D;
+}
+
+.error {
+    display: none;
+    background-color: #F23D5B;
+}
+
+.max_length {
+    display: none;
+    background-color: #F23D5B;
+}
+
+.text_popup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    color: #FFFFFF;
+    white-space: nowrap;
+}
+
+.popup_img {
+    margin-right: 10px;
 }
 
 /*Адаптив для планшетов*/
