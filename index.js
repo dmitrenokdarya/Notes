@@ -12,10 +12,16 @@ const model = {
     },
 
     deleteNote(id) {
-        console.log(id)
-        this.tasks = this.tasks.filter(task => task.id !== id);
+        this.tasks = this.tasks.filter((task) => {task.id !== id});
+        const li = document.getElementById(id)
+        li.remove()
         view.renderTasks(model.tasks)
     },
+
+    selectNote(id){
+        this.selectedTasks = this.tasks.filter((task) => {task.id === id});
+        console.log(model.selectedTasks)
+    }
 }
 
 const view = {
@@ -48,12 +54,18 @@ const view = {
 
         const list = document.querySelector('.list')
         list.addEventListener('click', event => {
-            console.log(event.target)
-            if (event.target.matches('img')) {
-                console.log('Вью2')
-                const id = +event.target.parentElement.id
-                console.log(id)
+            if (event.target.matches('img.delete-button')) {
+                const id = event.target.parentElement.id;
                 controller.deleteNote(id)
+            }
+        })
+
+        list.addEventListener('click', event => {
+            if (event.target.matches('img.selected-button')) {
+                const id = event.target.parentElement.id;
+                let selectedImg = event.target.src;
+                selectedImg = "assets/img/heart active.svg";
+                controller.selectNote(id)
             }
         })
     },
@@ -72,7 +84,7 @@ const view = {
                         <li id="${task.id}" class="${task.isSelected ? 'selected' : ''} note"> 
                         <div class = "title-buttons ${task.color}">
                             <p class="task-title">${task.title}</p> 
-                            <div class = "buttons">
+                            <div class = "buttons" id="${task.id}">
                                 <img src="assets/img/heart inactive.svg" alt="Selected" class="selected-button"> 
                                 <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
                             </div>
@@ -117,8 +129,11 @@ const controller = {
     },
 
     deleteNote(id) {
-        console.log('Контроллер')
         model.deleteNote(id)
+    },
+
+    selectNote(id) {
+        model.selectNote(id)
     }
 }
 
