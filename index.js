@@ -32,7 +32,6 @@ const model = {
     selectNote(id) {
         let newSelectedTask = ''
         for (let i = 0; i < this.tasks.length; i++) {
-            console.log(newSelectedTask)
             if (this.tasks[i].id === +id) {
                 newSelectedTask = this.tasks[i];
                 this.selectedTasks.unshift(newSelectedTask);
@@ -92,20 +91,15 @@ const view = {
         list.addEventListener('click', event => {
             if (event.target.matches('img.selected-button')) {
                 const id = event.target.parentElement.id;
-                //let selectedImg = event.target.src;
-                //selectedImg = "assets/img/heart active.svg";
                 controller.selectNote(id)
             }
-        })
+        })   
 
         const checkbox = document.querySelector('.checkbox')
-        let countCheckbox = 0;
         checkbox.addEventListener('click', event => {
-            if (countCheckbox % 2 === 0) {
-                countCheckbox++
+            if (checkbox.checked) {
                 model.showSelectedNotes()
             } else {
-                countCheckbox++
                 model.showTasks()
             }
         })
@@ -130,7 +124,8 @@ const view = {
                             <div class = "title-buttons ${task.color}">
                                 <p class="task-title">${task.title}</p> 
                                 <div class = "buttons" id="${task.id}">
-                                    <img src="assets/img/heart inactive.svg" alt="Selected" class="selected-button"> 
+                                    <input type='checkbox' class="selected-button" id="selected-button"> 
+                                    <label for="selected-button"></label>
                                     <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
                                 </div>
                             </div >
@@ -146,7 +141,8 @@ const view = {
                             <div class = "title-buttons ${task.color}">
                                 <p class="task-title">${task.title}</p> 
                                 <div class = "buttons" id="${task.id}">
-                                    <img src="assets/img/heart inactive.svg" alt="Selected" class="selected-button"> 
+                                    <input type='checkbox' class="selected-button" id="selected-button"> 
+                                    <label for="selected-button"></label>
                                     <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
                                 </div>
                             </div >

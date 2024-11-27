@@ -276,13 +276,39 @@ input.checkbox {
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+.selected-button,
+.delete-button {
+    height: 16px;
+    width: 16px;
     cursor: pointer;
 }
 
-img.selected-button,
-img.delete-button {
+/*Поддельный чекбокс-сердечко*/
+.selected-button {
+    display: none;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.selected-button+label {
+    background:url('assets/img/heartinactive.png') no-repeat;
+    background-size: contain;
     height: 16px;
     width: 16px;
+    display:inline-block;
+    cursor: pointer;
+}
+
+.selected-button:checked+label {
+    background:url('assets/img/heartactive.png') no-repeat;
+    background-size: contain;
+    height: 16px;
+    width: 16px;
+    display:inline-block;
+    cursor: pointer;
 }
 
 /*Всплывающие окна*/
@@ -336,10 +362,11 @@ img.delete-button {
     margin-right: 10px;
 }
 
-/*Адаптив для планшетов*/
+/*Адаптив для телефонов*/
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 540px) and (min-width: 375px) {
     .first_section {
+        justify-content: center;
         height: 348px;
     }
 
@@ -348,8 +375,31 @@ img.delete-button {
         flex-direction: column;
     }
 
+    input::placeholder,
+    textarea::placeholder {
+        font-size: 9px;
+    }
+
+    .input {
+        width:100%;
+        -webkit-box-sizing: border-box; 
+        -moz-box-sizing: border-box;           
+    }
+
     textarea {
-        min-width: 1104px;
         margin-bottom: 12px;
+    }
+
+    .add_button {
+        width: 212px; 
+    }
+
+    .checkbox_div {
+        justify-content: center;
+    }
+
+    .textZeroNotes {
+        font-size: 14px;
+        margin-top: 40px;
     }
 }
