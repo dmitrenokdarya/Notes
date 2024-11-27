@@ -6,21 +6,51 @@ const model = {
         const isSelected = false;
         const id = Math.random();
         const newTask = { title, description, color, isSelected, id };
-
         this.tasks.unshift(newTask);
+        const checkboxDivBlock = document.querySelector(".checkbox_div_block")
+        checkboxDivBlock.style.display = "block"
         view.renderTasks(model.tasks); //Обновляем представление
     },
 
-    deleteNote(id) {
-        this.tasks = this.tasks.filter((task) => {task.id !== id});
-        const li = document.getElementById(id)
-        li.remove()
-        view.renderTasks(model.tasks)
+    showTasks() {
+        view.renderTasks(this.tasks)
     },
 
-    selectNote(id){
-        this.selectedTasks = this.tasks.filter((task) => {task.id === id});
-        console.log(model.selectedTasks)
+    deleteNote(id) {
+        this.tasks = this.tasks.filter((task) => { return task.id !== +id });
+        let count = document.querySelector('.number_of_notes')
+        count.innerHTML = this.tasks.length
+        this.selectedTasks = this.selectedTasks.filter((task) => { return task.id !== +id });
+        const li = document.getElementById(id);
+        li.remove();
+        const checkboxDivBlock = document.querySelector(".checkbox_div_block")
+        if (this.tasks.length === 0) {
+            checkboxDivBlock.style.display = "none"
+        } else { checkboxDivBlock.style.display = "block" }
+    },
+
+    selectNote(id) {
+        let newSelectedTask = ''
+        for (let i = 0; i < this.tasks.length; i++) {
+            console.log(newSelectedTask)
+            if (this.tasks[i].id === +id) {
+                newSelectedTask = this.tasks[i];
+                this.selectedTasks.unshift(newSelectedTask);
+            }
+        }
+    },
+
+    deleteSelectNote(id) {
+        for (let i = 0; i < this.selectedTasks.length; i++) {
+            if (this.selectedTasks[i].id === +id) {
+                this.selectedTasks.unshift(newSelectedTask);
+                newSelectedTask = this.tasks[i]
+            }
+        }
+    },
+
+    showSelectedNotes() {
+        view.renderTasks(this.selectedTasks)
     }
 }
 
@@ -36,7 +66,6 @@ const view = {
             event.preventDefault() //Предотвращаем стандартное поведение формы
             const title = document.querySelector('.input').value
             const description = document.querySelector('.textarea').value
-
             //Находим checked-радиокнопку
             const radioButtons = document.getElementsByName('color');
             let color = '';
@@ -63,39 +92,72 @@ const view = {
         list.addEventListener('click', event => {
             if (event.target.matches('img.selected-button')) {
                 const id = event.target.parentElement.id;
-                let selectedImg = event.target.src;
-                selectedImg = "assets/img/heart active.svg";
+                //let selectedImg = event.target.src;
+                //selectedImg = "assets/img/heart active.svg";
                 controller.selectNote(id)
+            }
+        })
+
+        const checkbox = document.querySelector('.checkbox')
+        let countCheckbox = 0;
+        checkbox.addEventListener('click', event => {
+            if (countCheckbox % 2 === 0) {
+                countCheckbox++
+                model.showSelectedNotes()
+            } else {
+                countCheckbox++
+                model.showTasks()
             }
         })
     },
 
     renderTasks(tasks) {
-        const list = document.querySelector('.list')
         let count = document.querySelector('.number_of_notes')
         let textZeroNotes = document.querySelector('.textZeroNotes')
+        const list = document.querySelector('.list')
+        function hidetextZeroNotes() { textZeroNotes.style.display = "none" }
+        function showtextZeroNotes() { textZeroNotes.style.display = "block" }
+
         if (tasks.length === 0) {
-            textZeroNotes.innerHTML = 'У вас ещё нет ни одной заметки.<br>Заполните поля выше и создайте свою первую заметку!'
+            showtextZeroNotes()
         } else {
             let tasksHTML = ''
-            if (textZeroNotes) { textZeroNotes.remove() }
-            tasks.forEach((task) => {
-                tasksHTML += ` 
-                        <li id="${task.id}" class="${task.isSelected ? 'selected' : ''} note"> 
-                        <div class = "title-buttons ${task.color}">
-                            <p class="task-title">${task.title}</p> 
-                            <div class = "buttons" id="${task.id}">
-                                <img src="assets/img/heart inactive.svg" alt="Selected" class="selected-button"> 
-                                <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
-                            </div>
-                        </div >
-                        <p class="task-description">${task.description}</p> 
-                        </li> 
-                        `
-            })
-            list.innerHTML = tasksHTML
+            if (textZeroNotes.style.display = "block") {
+                hidetextZeroNotes()
+                tasks.forEach((task) => {
+                    tasksHTML += ` 
+                            <li id="${task.id}" class="${task.isSelected ? 'selected' : ''} note"> 
+                            <div class = "title-buttons ${task.color}">
+                                <p class="task-title">${task.title}</p> 
+                                <div class = "buttons" id="${task.id}">
+                                    <img src="assets/img/heart inactive.svg" alt="Selected" class="selected-button"> 
+                                    <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
+                                </div>
+                            </div >
+                            <p class="task-description">${task.description}</p> 
+                            </li> 
+                            `
+                })
+                list.innerHTML = tasksHTML
+            } else {
+                tasks.forEach((task) => {
+                    tasksHTML += ` 
+                            <li id="${task.id}" class="${task.isSelected ? 'selected' : ''} note"> 
+                            <div class = "title-buttons ${task.color}">
+                                <p class="task-title">${task.title}</p> 
+                                <div class = "buttons" id="${task.id}">
+                                    <img src="assets/img/heart inactive.svg" alt="Selected" class="selected-button"> 
+                                    <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
+                                </div>
+                            </div >
+                            <p class="task-description">${task.description}</p> 
+                            </li> 
+                            `
+                })
+                list.innerHTML = tasksHTML
+            }
         }
-        count.innerHTML = tasks.length
+        count.innerHTML = model.tasks.length
     }
 }
 
@@ -129,6 +191,16 @@ const controller = {
     },
 
     deleteNote(id) {
+        const popupDelete = document.querySelector(".delete");
+        const popupWindows = document.querySelector(".popup_windows")
+        function showPopupDelete() { popupDelete.style.display = "block"; };
+        function hidePopupDelete() { popupDelete.style.display = "none"; }
+        function showPopupWindows() { popupWindows.style.display = "block"; }
+        function hidePopupWindows() { popupWindows.style.display = "none"; }
+
+        showPopupWindows()
+        showPopupDelete()
+        setTimeout(function () { hidePopupWindows(); hidePopupDelete() }, 3000)
         model.deleteNote(id)
     },
 
