@@ -104,7 +104,6 @@ textarea::placeholder {
 textarea {
     font-family: "Montserrat", sans-serif;
     /*Не шло наследование от body*/
-    min-width: 848px;
     height: 84px;
     padding: 6px 12px 6px 12px;
     gap: 10px;
@@ -242,6 +241,7 @@ input.checkbox {
 /*Стили для образованных записей*/
 .list {
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
 }
 
@@ -282,32 +282,6 @@ input.checkbox {
 .delete-button {
     height: 16px;
     width: 16px;
-    cursor: pointer;
-}
-
-/*Поддельный чекбокс-сердечко*/
-.selected-button {
-    display: none;
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-}
-
-.selected-button+label {
-    background:url('assets/img/heartinactive.png') no-repeat;
-    background-size: contain;
-    height: 16px;
-    width: 16px;
-    display:inline-block;
-    cursor: pointer;
-}
-
-.selected-button:checked+label {
-    background:url('assets/img/heartactive.png') no-repeat;
-    background-size: contain;
-    height: 16px;
-    width: 16px;
-    display:inline-block;
     cursor: pointer;
 }
 
@@ -368,6 +342,7 @@ input.checkbox {
     .first_section {
         justify-content: center;
         height: 348px;
+        margin: 24px 24px 0px 24px;
     }
 
     .new_note_color {
@@ -375,31 +350,44 @@ input.checkbox {
         flex-direction: column;
     }
 
-    input::placeholder,
-    textarea::placeholder {
-        font-size: 9px;
-    }
-
     .input {
-        width:100%;
-        -webkit-box-sizing: border-box; 
-        -moz-box-sizing: border-box;           
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
     }
 
     textarea {
         margin-bottom: 12px;
+        width: 76.6vw;
     }
 
-    .add_button {
-        width: 212px; 
+    .second_section {
+        margin: 24px 24px;
     }
 
-    .checkbox_div {
-        justify-content: center;
+    .list {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .note {
+        width: 100%;
     }
 
     .textZeroNotes {
         font-size: 14px;
         margin-top: 40px;
+    }
+
+    .add,
+    .error,
+    .max_length,
+    .delete {
+        width: 75vw;
+        height: auto;
+    }
+
+    .text_popup {
+        white-space: wrap;
     }
 }

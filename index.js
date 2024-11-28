@@ -2,20 +2,23 @@ const model = {
     tasks: [],
     selectedTasks: [],
 
+    //Добавляет заметку
     addTask(title, description, color) {
         const isSelected = false;
         const id = Math.random();
-        const newTask = { title, description, color, isSelected, id };
+        const newTask = { title, description, color, id };
         this.tasks.unshift(newTask);
         const checkboxDivBlock = document.querySelector(".checkbox_div_block")
         checkboxDivBlock.style.display = "block"
         view.renderTasks(model.tasks); //Обновляем представление
     },
 
+    //Показывает все заметки
     showTasks() {
         view.renderTasks(this.tasks)
     },
 
+    //Удаляет заметку
     deleteNote(id) {
         this.tasks = this.tasks.filter((task) => { return task.id !== +id });
         let count = document.querySelector('.number_of_notes')
@@ -24,30 +27,44 @@ const model = {
         const li = document.getElementById(id);
         li.remove();
         const checkboxDivBlock = document.querySelector(".checkbox_div_block")
+        const textZeroNotes = document.querySelector('.textZeroNotes')
         if (this.tasks.length === 0) {
-            checkboxDivBlock.style.display = "none"
+            checkboxDivBlock.style.display = "none";
+            textZeroNotes.style.display = "block"
         } else { checkboxDivBlock.style.display = "block" }
     },
 
+    //Добавляет заметку в избранное
     selectNote(id) {
         let newSelectedTask = ''
         for (let i = 0; i < this.tasks.length; i++) {
             if (this.tasks[i].id === +id) {
-                newSelectedTask = this.tasks[i];
-                this.selectedTasks.unshift(newSelectedTask);
-            }
-        }
-    },
-
-    deleteSelectNote(id) {
-        for (let i = 0; i < this.selectedTasks.length; i++) {
-            if (this.selectedTasks[i].id === +id) {
-                this.selectedTasks.unshift(newSelectedTask);
                 newSelectedTask = this.tasks[i]
-            }
+                console.log('Привет1');
+                if (this.selectedTasks.length === 0) {
+                    this.selectedTasks.unshift(newSelectedTask);
+                    console.log('Привет2')
+                    console.log(this.selectedTasks)
+                } else {
+                    for (let n = 0; n < this.selectedTasks.length; n++) {
+                        if (this.selectedTasks[n].id !== +newSelectedTask.id) {
+                            console.log('Привет')
+                            this.selectedTasks.unshift(newSelectedTask);
+                            console.log(this.selectedTasks)
+                        } else { console.log('Эта заметка уже добавлена в избранные!') }
+                    }
+                }
+            } console.log('Привет4')
         }
     },
 
+    //Удаляет заметку из избранного
+    deleteSelectNote(id) {
+        this.selectedTasks = this.selectedTasks.filter((task) => { return task.id !== +id });
+        console.log(this.selectedTasks)
+    },
+
+    //Показывает избранные заметки
     showSelectedNotes() {
         view.renderTasks(this.selectedTasks)
     }
@@ -80,6 +97,7 @@ const view = {
             textarea.value = ''
         })
 
+        //Удаление заметки
         const list = document.querySelector('.list')
         list.addEventListener('click', event => {
             if (event.target.matches('img.delete-button')) {
@@ -88,13 +106,28 @@ const view = {
             }
         })
 
+        //Добавляет/удаляет заметку в/из избранное/-ого
+        let countClick = 1;
         list.addEventListener('click', event => {
-            if (event.target.matches('img.selected-button')) {
+            if (event.target.matches('.selected-button')) {
                 const id = event.target.parentElement.id;
-                controller.selectNote(id)
+                console.log(id)
+                const imgSelected = event.target;
+                if (countClick % 2 !== 0) {
+                    imgSelected.src = 'assets/img/heartactive.png'//ссылка на картинку
+                    countClick++
+                    console.log(id)
+                    controller.selectNote(id)
+                } else {
+                    imgSelected.src = 'assets/img/heartinactive.png'//ссылка на картинку
+                    countClick++
+                    console.log(id)
+                    controller.deleteSelectNote(id)
+                }
             }
-        })   
+        })
 
+        //Показать/скрыть избранные заметки
         const checkbox = document.querySelector('.checkbox')
         checkbox.addEventListener('click', event => {
             if (checkbox.checked) {
@@ -107,12 +140,12 @@ const view = {
 
     renderTasks(tasks) {
         let count = document.querySelector('.number_of_notes')
-        let textZeroNotes = document.querySelector('.textZeroNotes')
+        const textZeroNotes = document.querySelector('.textZeroNotes')
         const list = document.querySelector('.list')
         function hidetextZeroNotes() { textZeroNotes.style.display = "none" }
         function showtextZeroNotes() { textZeroNotes.style.display = "block" }
 
-        if (tasks.length === 0) {
+        if (model.tasks.length === 0) {
             showtextZeroNotes()
         } else {
             let tasksHTML = ''
@@ -120,35 +153,33 @@ const view = {
                 hidetextZeroNotes()
                 tasks.forEach((task) => {
                     tasksHTML += ` 
-                            <li id="${task.id}" class="${task.isSelected ? 'selected' : ''} note"> 
-                            <div class = "title-buttons ${task.color}">
-                                <p class="task-title">${task.title}</p> 
-                                <div class = "buttons" id="${task.id}">
-                                    <input type='checkbox' class="selected-button" id="selected-button"> 
-                                    <label for="selected-button"></label>
-                                    <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
-                                </div>
-                            </div >
-                            <p class="task-description">${task.description}</p> 
-                            </li> 
-                            `
+                                <li id="${task.id}" class="note"> 
+                                <div class = "title-buttons ${task.color}">
+                                    <p class="task-title">${task.title}</p> 
+                                    <div class = "buttons" id="${task.id}">
+                                        <img src="assets/img/heartinactive.png" alt="isSelected?" class="selected-button" id="selected-button"> 
+                                        <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
+                                    </div>
+                                </div >
+                                <p class="task-description">${task.description}</p> 
+                                </li> 
+                                `
                 })
                 list.innerHTML = tasksHTML
             } else {
                 tasks.forEach((task) => {
                     tasksHTML += ` 
-                            <li id="${task.id}" class="${task.isSelected ? 'selected' : ''} note"> 
-                            <div class = "title-buttons ${task.color}">
-                                <p class="task-title">${task.title}</p> 
-                                <div class = "buttons" id="${task.id}">
-                                    <input type='checkbox' class="selected-button" id="selected-button"> 
-                                    <label for="selected-button"></label>
-                                    <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
-                                </div>
-                            </div >
-                            <p class="task-description">${task.description}</p> 
-                            </li> 
-                            `
+                                <li id="${task.id}" class="note"> 
+                                <div class = "title-buttons ${task.color}">
+                                    <p class="task-title">${task.title}</p> 
+                                    <div class = "buttons" id="${task.id}">
+                                        <img src="assets/img/heartinactive.png" alt="isSelected?" class="selected-button" id="selected-button">
+                                        <img src="assets/img/trash.png" alt="Delete" class="delete-button"> 
+                                    </div>
+                                </div >
+                                <p class="task-description">${task.description}</p> 
+                                </li> 
+                                `
                 })
                 list.innerHTML = tasksHTML
             }
@@ -202,6 +233,10 @@ const controller = {
 
     selectNote(id) {
         model.selectNote(id)
+    },
+
+    deleteSelectNote(id) {
+        model.deleteSelectNote(id)
     }
 }
 
